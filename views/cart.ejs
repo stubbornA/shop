@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel='stylesheet' href='/stylesheets/productDetail.css' />
+</head>
+<body>
+<h1>您的商品</h1>
+<hr/>
+<table border="1" id="cartTable">
+    <tr>
+        <td>蛋糕名称</td>
+        <td>大小</td>
+        <td>数量</td>
+        <td>单价</td>
+        <td>合计</td>
+        <td>删除</td>
+    </tr>
+
+    <%
+    var sum=0;
+    for(var i=0;i<rs.length;i++)
+    {
+    %>
+    <tr>
+        <td><%=rs[i].prod_name%></td>
+        <td><%=rs[i].prod_size%></td>
+        <td class="cakeNum">
+            <input type="hidden" class="tdCartid" value="<%=rs[i].cart_id%>"/>
+            <input type="text" id="product-num" class="tdProductNum" name="productNum" value="<%=rs[i].prod_num%>">
+        </td>
+        <td class="cakeprice"><%=rs[i].prod_price%></td>
+        <td class="cakesum"><%=rs[i].prod_num*rs[i].prod_price%></td>
+        <td><input type='image' src='/images/button_remove.gif' onclick='del(\"" + rs[i].cart_id + "\")'/></td>
+    </tr>
+    <%
+      sum=sum+rs[i].prod_num*rs[i].prod_price;
+     }
+    %>
+</table>
+合计：<span id="priceSum"><%=sum%></span>
+<hr/>
+<button type="button" onclick="pay()">确认购买</button>
+<!--<a href="/cart/pay?money=">确认购买</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+<a href="#">返回</a>
+<script src="/javascripts/jquery-1.11.0.min.js"></script>
+<script src="/javascripts/jquery.numinput-1.0.js"></script>
+<script src="/javascripts/productDetail.js"></script>
+<script src="/javascripts/cart.js"></script>
+<script>
+    function pay() {
+        var $money=$('#priceSum').html();
+
+        $.ajax({
+
+        })
+        alert($money);
+    }
+</script>
+</body>
+</html>
